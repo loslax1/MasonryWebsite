@@ -61,10 +61,10 @@
 
     <!-- Header Section -->
     <header class="bg-gray-900 text-white shadow-lg py-4">
-        <div class="container mx-auto px-4 flex justify-between items-center">
+        <div class="container mx-auto px-4 flex justify-between items-center flex-wrap">
             <h1 class="text-3xl font-bold text-amber-500">Luis C Hernandez Jr. LLC</h1>
-            <nav>
-                <ul class="flex space-x-6">
+            <nav class="mt-2 sm:mt-0">
+                <ul class="flex flex-wrap justify-center space-x-4 md:space-x-6">
                     <li><a href="#home" class="hover:text-amber-400 transition duration-300">Home</a></li>
                     <li><a href="#about" class="hover:text-amber-400 transition duration-300">About</a></li>
                     <li><a href="#work" class="hover:text-amber-400 transition duration-300">Work</a></li>
@@ -78,7 +78,6 @@
     <section id="home" class="bg-gray-800 text-white py-20 md:py-32 text-center relative overflow-hidden rounded-b-lg shadow-xl">
         <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('images/backgroundbrickwork.jpeg');"></div>
         <div class="container mx-auto px-4 relative z-10">
-            <!-- COLOR CHANGED HERE -->
             <p class="text-2xl md:text-3xl font-semibold text-amber-500 mb-2">Expert Masonry Services</p>
             <h2 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">Building Timeless Beauty, One Brick at a Time</h2>
             <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Expert masonry services with over 30 years of dedication and craftsmanship.</p>
@@ -86,22 +85,22 @@
         </div>
     </section>
 
-    <!-- About Us Section -->
+    <!-- About Me Section -->
     <section id="about" class="py-16 md:py-24 bg-white rounded-lg shadow-md mx-4 md:mx-auto my-8 max-w-6xl">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
             <div class="md:w-1/2">
                 <img src="images/portrait.jpeg" alt="Luis Hernandez Portrait" class="rounded-xl shadow-lg w-full h-auto object-cover border-4 border-amber-200">
             </div>
             <div class="md:w-1/2 text-center md:text-left">
-                <h3 class="text-4xl font-bold text-gray-900 mb-6 section-title">About Luis & His Work</h3>
+                <h3 class="text-4xl font-bold text-gray-900 mb-6 section-title">About Me & My Work</h3>
                 <p class="text-lg leading-relaxed mb-4 text-gray-700">
-                    With over <span class="font-semibold text-amber-600">30 years of experience</span> in the masonry trade, Luis has dedicated his life to the art and craft of working with stone, brick, and block. His passion for creating durable and beautiful structures is evident in every project he undertakes.
+                    With over <span class="font-semibold text-amber-600">30 years of experience</span> in the masonry trade, I have dedicated my life to the art and craft of working with stone, brick, and block. My passion for creating durable and beautiful structures is evident in every project I undertake.
                 </p>
                 <p class="text-lg leading-relaxed mb-4 text-gray-700">
-                    He specializes in a wide range of masonry services, including intricate brickwork, making caps, robust stone foundations, elegant fireplaces, durable patios, and custom outdoor living spaces. His commitment to quality, attention to detail, and deep understanding of traditional and modern masonry techniques ensure that every project is built to last and exceeds client expectations.
+                    I specialize in a wide range of masonry services, including intricate brickwork, making caps, robust stone foundations, elegant fireplaces, durable patio pillars, custom outdoor living spaces, and much more! My commitment to quality, attention to detail, and deep understanding of traditional and modern masonry techniques ensure that every project is built to last and exceeds client expectations.
                 </p>
                 <p class="text-lg leading-relaxed text-gray-700">
-                    He believes in honest work, clear communication, and delivering results that stand the test of time, both aesthetically and structurally.
+                    I believe in honest work, clear communication, and delivering results that stand the test of time, both aesthetically and structurally.
                 </p>
             </div>
         </div>
@@ -110,105 +109,11 @@
     <!-- Our Work Section -->
     <section id="work" class="py-16 md:py-24 bg-gray-100 rounded-lg shadow-md mx-4 md:mx-auto my-8 max-w-6xl">
         <div class="container mx-auto px-4">
-            <h3 class="text-4xl font-bold text-gray-900 mb-12 text-center section-title">Work</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1: brickwork1.jpeg - Stone Fireplace Interior -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer project-item">
-                    <img src="images/brickwork1.jpeg" alt="Interior Stone Fireplace with Arch" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-2">Grand Interior Stone Fireplace</h4>
-                        <p class="text-gray-700">A magnificent interior fireplace featuring expertly laid natural stone, complete with a classic arch design, creating a focal point in any room.</p>
-                    </div>
-                </div>
-                <!-- Project 2: brickwork2.jpg - Durable Brick Pillars (SWAPPED FROM PROJECT 12) -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer project-item">
-                    <img src="images/brickwork2.jpeg" alt="Durable Brick Pillars" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-2">Durable Brick Pillars</h4>
-                        <p class="text-gray-700">Custom-built brick sturdy side pillars, providing a welcoming and robust entrance to a home.</p>
-                    <p class="text-gray-700">Custom-built brick sturdy side pillars, providing a welcoming and robust entrance to a home.</p>
-                    </div>
-                </div>
-                <!-- Project 3: brickwork3.jpeg - Stone Veneer Garage Facade -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer project-item">
-                    <img src="images/brickwork3.jpeg" alt="Stone Veneer Garage Facade" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-2">Modern Stone Veneer Garage Facade</h4>
-                        <p class="text-gray-700">Contemporary stone veneer application on a garage facade, adding texture and sophisticated curb appeal to the property.</p>
-                    </div>
-                </div>
-                <!-- Project 4: brickwork4.jpeg - Dry Stacked Stone Fireplace -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer project-item">
-                    <img src="images/brickwork4.jpeg" alt="Dry Stacked Stone Fireplace" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-2">Sleek Dry Stacked Stone Fireplace</h4>
-                        <p class="text-gray-700">A modern fireplace featuring horizontally dry stacked stone, creating a clean and elegant focal point in a living area.</p>
-                    </div>
-                </div>
-                <!-- Project 5: brickwork5.jpeg - Residential Brick Foundation/Skirt -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer project-item">
-                    <img src="images/brickwork5.jpeg" alt="Residential Brick Foundation Skirt" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-2">Residential Brick Foundation Skirt</h4>
-                        <p class="text-gray-700">Classic red brickwork forming a sturdy and attractive foundation skirt for a residential property, providing both protection and aesthetic appeal.</p>
-                    </div>
-                </div>
-                <!-- Project 6: brickwork6.jpeg - Large Stacked Stone Fireplace with Mantle -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer project-item">
-                    <img src="images/brickwork6.jpeg" alt="Tall Stacked Stone Fireplace with Wood Mantle" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-2">Tall Stacked Stone Fireplace with Mantle</h4>
-                        <p class="text-gray-700">An impressive floor-to-ceiling fireplace crafted with stacked stone, featuring a robust wooden mantle, perfect for grand living spaces.</p>
-                    </div>
-                </div>
-                <!-- Project 7: brickwork7.jpeg - Brick Home Entrance -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer project-item">
-                    <img src="images/brickwork7.jpeg" alt="Brick Home Entrance with Pillars" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-2">Inviting Brick Home Entrance</h4>
-                        <p class="text-gray-700">A welcoming home entrance framed by elegant brick pillars and facade, showcasing clean lines and expert craftsmanship.</p>
-                    </div>
-                </div>
-                <!-- Project 8: brickwork8.jpeg - Brick Exterior Wall with Windows -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer project-item">
-                    <img src="images/brickwork8.jpeg" alt="Modern Brick Exterior Wall with Large Windows" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-2">Modern Brick Exterior with Windows</h4>
-                        <p class="text-gray-700">Contemporary brickwork on a building exterior, featuring large windows and precise masonry, blending modern design with traditional materials.</p>
-                    </div>
-                </div>
-                <!-- Project 9: brickwork9.jpg - Brick Wall Patch Repair -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer project-item">
-                    <img src="images/brickwork9.jpeg" alt="Brick Wall Patch Repair" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-2">Expert Brick Wall Patch Repair</h4>
-                        <p class="text-gray-700">Seamless repair of a damaged brick wall, demonstrating meticulous attention to matching existing patterns and mortar for a flawless finish.</p>
-                    </div>
-                </div>
-                <!-- Project 10: brickwork10.jpeg - Brick Gate Pillars with Caps -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer project-item">
-                    <img src="images/brickwork10.jpeg" alt="Brick Gate Pillars with Concrete Caps" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-2">Sturdy Brick Gate Pillars</h4>
-                        <p class="text-gray-700">Solid brick gate pillars topped with clean concrete caps, providing a strong and attractive entry point to a property.</p>
-                    </div>
-                </div>
-                <!-- Project 11: brickwork11.jpeg - Modern Black Stacked Stone Fireplace -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer project-item">
-                    <img src="images/brickwork11.jpeg" alt="Modern Black Stacked Stone Fireplace" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-2">Modern Black Stacked Stone Fireplace</h4>
-                        <p class="text-gray-700">A contemporary interior fireplace featuring sleek black stacked stone and a minimalist wooden mantle, creating a bold and modern aesthetic.</p>
-                    </div>
-                </div>
-                <!-- Project 12: brickwork12.jpeg - Exterior Stone Chimney Construction (SWAPPED FROM PROJECT 2) -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer project-item">
-                    <img src="images/brickwork12.jpeg" alt="Exterior Stone Chimney Construction" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-2">Exterior Stone Chimney Construction</h4>
-                        <p class="text-gray-700">The exterior view of a newly constructed stone chimney, showcasing robust masonry work that complements the home's architecture.</p>
-                    </div>
-                </div>
+            <h3 class="text-4xl font-bold text-black-900 mb-12 text-center section-title">
+                Work <span class="text-base text-gray-600 block mt-2 sm:inline-block sm:mt-0">(Press image to expand)</span>
+            </h3>
+            <div id="projectsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!--projects-->
             </div>
         </div>
     </section>
@@ -329,5 +234,68 @@
             }
         });
     </script>
+    <!-- Lightbox Overlay -->
+<div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:9999;">
+  <img src="" alt="Expanded Image" style="max-width:90%; max-height:90%; border-radius:8px; box-shadow:0 0 20px rgba(0,0,0,0.5);" />
+</div>
+<script>
+  // Wait for projects to load
+  document.addEventListener("DOMContentLoaded", () => {
+    // Delegate clicks to images
+    document.body.addEventListener("click", e => {
+      if (e.target.tagName === "IMG" && e.target.classList.contains("project-image")) {
+        document.querySelector("#lightbox img").src = e.target.src;
+        document.getElementById("lightbox").style.display = "flex";
+      }
+    });
+
+    // Close lightbox on click
+    document.getElementById("lightbox").addEventListener("click", () => {
+      document.getElementById("lightbox").style.display = "none";
+    });
+  });
+</script>
 </body>
+<script>
+  // --- CONFIG: Replace these with your actual sheet ID and API key ---
+  const sheetID = "1Lb82DGpTXuyo_ngBaqgXw-TYArspSb13Pku0g3EmKZI"; // from your Google Sheet URL
+  const sheetName = "Sheet1"; // usually Sheet1 unless renamed
+  const apiKey = "AIzaSyC1v-hdfhbEDpSFzkeTzGgznbE-uYIIWOk"; // your Google Cloud API key with Sheets API enabled
+
+  async function loadProjectsFromSheet() {
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/${sheetName}?key=${apiKey}`;
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (!data.values || data.values.length < 2) {
+        console.warn("No project data found in sheet.");
+        return;
+      }
+
+      const rows = data.values.slice(1); // Skip headers
+      const container = document.getElementById("projectsContainer");
+
+      container.innerHTML = ""; // Clear any existing content
+
+      rows.forEach(row => {
+        const [title, description, image_url] = row;
+        const projectHTML = `
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 cursor-pointer project-item">
+            <img src="${image_url}" alt="${title}" class="project-image w-full h-64 object-cover" />
+            <div class="p-6">
+              <h4 class="text-2xl font-semibold text-gray-900 mb-2">${title}</h4>
+              <p class="text-gray-700">${description}</p>
+            </div>
+          </div>
+        `;
+        container.insertAdjacentHTML('beforeend', projectHTML);
+      });
+    } catch (error) {
+      console.error("Failed to load projects from Google Sheets:", error);
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', loadProjectsFromSheet);
+</script>
 </html>
