@@ -3,186 +3,618 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Luis Hernandez Masonry</title>
+  <title>Luis C Hernandez Jr. LLC — Master Masonry</title>
+  <meta name="description" content="Master masonry by Luis C Hernandez Jr. Over 30 years of brickwork, stonework, fireplaces, chimneys, and custom outdoor living in the Bitterroot Valley." />
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts - Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Fraunces"', 'ui-serif', 'Georgia', 'serif'],
+            sans: ['"Inter"', 'ui-sans-serif', 'system-ui'],
+          },
+          colors: {
+            stone: {
+              50:  '#faf8f5',
+              100: '#f2ede5',
+              200: '#e4dccf',
+              300: '#cfc2ac',
+              400: '#a89680',
+              500: '#7d6d59',
+              600: '#5a4e3e',
+              700: '#3f362b',
+              800: '#2a241d',
+              900: '#1a1612',
+            },
+            ember: {
+              400: '#f59e0b',
+              500: '#e08a07',
+              600: '#b76e05',
+              700: '#8a5204',
+            },
+          },
+          boxShadow: {
+            'soft': '0 10px 40px -15px rgba(42, 36, 29, 0.25)',
+            'card': '0 4px 24px -8px rgba(42, 36, 29, 0.15)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f8f8f8;
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background-color: #faf8f5; color: #2a241d; }
+
+    /* Subtle paper/stone texture */
+    .texture {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(42,36,29,0.04) 1px, transparent 0);
+      background-size: 24px 24px;
     }
-    .section-title {
-      position: relative;
+
+    /* Eyebrow label */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      text-transform: uppercase; letter-spacing: 0.28em;
+      font-size: 0.72rem; font-weight: 600;
+      color: #b76e05;
+    }
+    .eyebrow::before {
+      content: ''; display: inline-block;
+      width: 28px; height: 1px; background-color: #b76e05;
+    }
+
+    /* Masonry layout */
+    .masonry { column-gap: 1.5rem; }
+    @media (min-width: 640px)  { .masonry { column-count: 2; column-gap: 1.5rem; } }
+    @media (min-width: 1024px) { .masonry { column-count: 3; column-gap: 1.75rem; } }
+    .masonry > .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 1.75rem;
       display: inline-block;
-      padding-bottom: 0.5rem;
+      width: 100%;
     }
-    .section-title::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 50%;
-      height: 3px;
-      background-color: #f59e0b;
-      border-radius: 9999px;
+
+    /* Slider */
+    .slider { position: relative; overflow: hidden; }
+    .slides { display: flex; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    .slides > .slide { flex: 0 0 100%; }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* Skeleton */
+    .skeleton {
+      background: linear-gradient(90deg, #eee3d0 0%, #f5ecd8 50%, #eee3d0 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.6s infinite;
+      border-radius: 1rem;
     }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    /* Scroll to top */
     #scrollToTopBtn {
-      display: none;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-      background-color: #f59e0b;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      padding: 15px;
-      font-size: 24px;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: none; position: fixed; bottom: 20px; right: 20px;
+      z-index: 60; width: 48px; height: 48px; border-radius: 9999px;
+      background-color: #2a241d; color: #fff; border: none;
+      box-shadow: 0 10px 30px -10px rgba(42,36,29,0.6);
+      cursor: pointer; transition: transform 0.25s ease, background-color 0.25s ease;
     }
-    #scrollToTopBtn:hover {
-      background-color: #d97706;
-      transform: translateY(-2px);
+    #scrollToTopBtn:hover { background-color: #1a1612; transform: translateY(-2px); }
+
+    /* Marquee */
+    .marquee { display: flex; gap: 4rem; animation: marquee 30s linear infinite; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
-    #imageModal {
-      transition: opacity 0.3s ease-in-out;
-    }
+
+    /* Project card image hover */
+    .card-img-wrap { overflow: hidden; }
+    .card-img-wrap img { transition: transform 0.7s ease; }
+    .group:hover .card-img-wrap img { transform: scale(1.04); }
   </style>
 </head>
-<body class="text-gray-800">
+<body class="antialiased">
 
-  <!-- Header Section -->
-  <header class="bg-gray-900 text-white shadow-lg py-4">
-    <div class="container mx-auto px-4 flex justify-between items-center flex-wrap">
-      <h1 class="text-3xl font-bold text-amber-500">Luis C Hernandez Jr. LLC</h1>
-      <nav class="mt-2 sm:mt-0">
-        <ul class="flex flex-wrap justify-center space-x-4 md:space-x-6">
-          <li><a href="#home" class="hover:text-amber-400 transition duration-300">Home</a></li>
-          <li><a href="#about" class="hover:text-amber-400 transition duration-300">About</a></li>
-          <li><a href="#work" class="hover:text-amber-400 transition duration-300">Work</a></li>
-          <li><a href="#contact" class="hover:text-amber-400 transition duration-300">Contact</a></li>
+  <!-- Top announcement bar -->
+  <div class="bg-stone-900 text-stone-200 text-xs sm:text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between">
+      <span class="hidden sm:inline">Serving the Bitterroot Valley &amp; beyond — 30+ years of craftsmanship.</span>
+      <span class="sm:hidden">30+ years of craftsmanship</span>
+      <a href="tel:+14062812191" class="inline-flex items-center gap-1.5 hover:text-ember-400 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h2.28a2 2 0 011.94 1.515l.7 2.8a2 2 0 01-.45 1.95l-1.27 1.27a16 16 0 006.586 6.586l1.27-1.27a2 2 0 011.95-.45l2.8.7A2 2 0 0121 17.72V20a2 2 0 01-2 2h-1C9.716 22 2 14.284 2 5V4z"/></svg>
+        (406) 281-2191
+      </a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header id="siteHeader" class="sticky top-0 z-50 bg-stone-50/85 backdrop-blur border-b border-stone-200/80 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        <a href="#home" class="flex items-center gap-3">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-stone-900 text-ember-400 font-display font-bold text-lg">LH</span>
+          <span class="leading-tight">
+            <span class="block font-display text-base sm:text-lg font-semibold text-stone-900">Luis C Hernandez Jr.</span>
+            <span class="block text-[10px] sm:text-xs uppercase tracking-[0.25em] text-stone-500">Master Masonry · LLC</span>
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-10 text-sm font-medium text-stone-700">
+          <a href="#about"    class="hover:text-stone-900 transition">About</a>
+          <a href="#services" class="hover:text-stone-900 transition">Services</a>
+          <a href="#work"     class="hover:text-stone-900 transition">Work</a>
+          <a href="#contact"  class="hover:text-stone-900 transition">Contact</a>
+          <a href="#contact"  class="inline-flex items-center gap-2 bg-stone-900 hover:bg-stone-800 text-stone-50 font-semibold px-5 py-2.5 rounded-full transition">
+            Get a Quote
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </nav>
+
+        <button id="navToggle" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-stone-900 hover:bg-stone-200/60" aria-label="Toggle menu">
+          <svg id="iconOpen"  xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="iconClose" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <nav id="mobileNav" class="md:hidden hidden pb-4">
+        <ul class="flex flex-col gap-1 text-base font-medium text-stone-800">
+          <li><a href="#about"    class="block px-3 py-2.5 rounded-lg hover:bg-stone-200/60">About</a></li>
+          <li><a href="#services" class="block px-3 py-2.5 rounded-lg hover:bg-stone-200/60">Services</a></li>
+          <li><a href="#work"     class="block px-3 py-2.5 rounded-lg hover:bg-stone-200/60">Work</a></li>
+          <li><a href="#contact"  class="block px-3 py-2.5 rounded-lg hover:bg-stone-200/60">Contact</a></li>
+          <li class="pt-2"><a href="#contact" class="block px-3 py-3 rounded-full bg-stone-900 text-stone-50 font-semibold text-center">Get a Quote</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section id="home" class="bg-gray-800 text-white py-20 md:py-32 text-center relative overflow-hidden rounded-b-lg shadow-xl">
-    <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('images/backgroundbrickwork.jpeg');"></div>
-    <div class="container mx-auto px-4 relative z-10">
-      <p class="text-2xl md:text-3xl font-semibold text-amber-500 mb-2">Expert Masonry Services</p>
-      <h2 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">Building Timeless Beauty, One Brick at a Time</h2>
-      <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Expert masonry services with over 30 years of dedication and craftsmanship.</p>
-      <a href="#work" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 shadow-lg">View Work</a>
-    </div>
-  </section>
+  <!-- Hero -->
+  <section id="home" class="relative overflow-hidden bg-stone-900 text-stone-100">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('images/backgroundbrickwork.jpeg');"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-stone-900/60 to-stone-900"></div>
+    <div class="absolute inset-0 texture opacity-40"></div>
 
-  <!-- About Section -->
-  <section id="about" class="py-16 md:py-24 bg-white rounded-lg shadow-md mx-4 md:mx-auto my-8 max-w-6xl">
-    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
-      <div class="md:w-1/2">
-        <img src="images/portrait.jpeg" alt="Luis Hernandez Portrait" class="rounded-xl shadow-lg w-full h-auto object-cover border-4 border-amber-200">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-28 sm:pt-32 sm:pb-36 lg:pt-44 lg:pb-48">
+      <div class="max-w-3xl">
+        <p class="eyebrow text-ember-400"><span class="after:content-[''] after:inline-block after:w-0"></span>Master Masonry · Est. 30+ Years</p>
+        <h1 class="mt-5 font-display text-[2.5rem] sm:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight">
+          Timeless beauty,<br>
+          <span class="italic text-ember-400">one stone</span> at a time.
+        </h1>
+        <p class="mt-6 text-base sm:text-lg text-stone-300 max-w-xl leading-relaxed">
+          Brickwork, stonework, fireplaces, chimneys, and custom outdoor living —
+          crafted with three decades of patient, honest hands.
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <a href="#work" class="inline-flex items-center justify-center gap-2 bg-ember-400 hover:bg-ember-500 text-stone-900 font-semibold py-3.5 px-7 rounded-full transition shadow-soft">
+            See Recent Work
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+          <a href="#contact" class="inline-flex items-center justify-center bg-transparent border border-stone-300/30 hover:bg-white/10 text-stone-100 font-medium py-3.5 px-7 rounded-full transition">
+            Request a Free Quote
+          </a>
+        </div>
       </div>
-      <div class="md:w-1/2 text-center md:text-left">
-        <h3 class="text-4xl font-bold text-gray-900 mb-6 section-title">About</h3>
-        <p class="text-lg leading-relaxed mb-4 text-gray-700">
-          With over <span class="font-semibold text-amber-600">30 years of experience</span> in the masonry trade, I have dedicated my life to the art and craft of working with stone, brick, and block.
-        </p>
-        <p class="text-lg leading-relaxed mb-4 text-gray-700">
-          I specialize in a wide range of masonry services, including intricate brickwork, making caps, robust stone foundations, elegant fireplaces, durable patio pillars, custom outdoor living spaces, and more!
-        </p>
-        <p class="text-lg leading-relaxed text-gray-700">
-          I believe in honest work, clear communication, and delivering results that stand the test of time, both aesthetically and structurally.
-        </p>
+
+      <!-- Stat strip -->
+      <div class="mt-16 sm:mt-20 lg:mt-28 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-10 max-w-4xl border-t border-stone-100/10 pt-8">
+        <div>
+          <div class="font-display text-3xl sm:text-4xl font-semibold text-ember-400">30+</div>
+          <div class="mt-1 text-xs sm:text-sm text-stone-400 uppercase tracking-wider">Years Experience</div>
+        </div>
+        <div>
+          <div class="font-display text-3xl sm:text-4xl font-semibold text-ember-400">500+</div>
+          <div class="mt-1 text-xs sm:text-sm text-stone-400 uppercase tracking-wider">Projects Built</div>
+        </div>
+        <div>
+          <div class="font-display text-3xl sm:text-4xl font-semibold text-ember-400">100%</div>
+          <div class="mt-1 text-xs sm:text-sm text-stone-400 uppercase tracking-wider">Owner On Site</div>
+        </div>
+        <div>
+          <div class="font-display text-3xl sm:text-4xl font-semibold text-ember-400">A+</div>
+          <div class="mt-1 text-xs sm:text-sm text-stone-400 uppercase tracking-wider">Craftsmanship</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Work Section -->
-  <section id="work" class="py-16 md:py-24 bg-gray-100 rounded-lg shadow-md mx-4 md:mx-auto my-8 max-w-6xl">
-    <div class="container mx-auto px-4">
-      <h3 class="text-4xl font-bold text-black-900 mb-12 text-center section-title">
-        Work <span class="text-base text-black-600 block mt-2 sm:inline-block sm:mt-0">(Press image to expand)</span>
-      </h3>
-      <div id="projectsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+  <!-- Marquee -->
+  <div class="bg-stone-100 border-y border-stone-200 overflow-hidden">
+    <div class="marquee py-5 whitespace-nowrap font-display italic text-stone-500 text-xl sm:text-2xl">
+      <div class="flex gap-16 px-8">
+        <span>Brickwork</span><span class="text-ember-500">✦</span>
+        <span>Stone Foundations</span><span class="text-ember-500">✦</span>
+        <span>Fireplaces</span><span class="text-ember-500">✦</span>
+        <span>Chimneys</span><span class="text-ember-500">✦</span>
+        <span>Patios &amp; Pillars</span><span class="text-ember-500">✦</span>
+        <span>Outdoor Living</span><span class="text-ember-500">✦</span>
+        <span>Repairs &amp; Restoration</span><span class="text-ember-500">✦</span>
+      </div>
+      <div class="flex gap-16 px-8" aria-hidden="true">
+        <span>Brickwork</span><span class="text-ember-500">✦</span>
+        <span>Stone Foundations</span><span class="text-ember-500">✦</span>
+        <span>Fireplaces</span><span class="text-ember-500">✦</span>
+        <span>Chimneys</span><span class="text-ember-500">✦</span>
+        <span>Patios &amp; Pillars</span><span class="text-ember-500">✦</span>
+        <span>Outdoor Living</span><span class="text-ember-500">✦</span>
+        <span>Repairs &amp; Restoration</span><span class="text-ember-500">✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section id="about" class="relative py-24 sm:py-32 bg-stone-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+
+        <div class="lg:col-span-5 reveal">
+          <div class="relative">
+            <img src="images/portrait.jpeg" alt="Luis Hernandez"
+                 class="relative z-10 rounded-2xl shadow-soft w-full h-auto object-cover aspect-[4/5]">
+            <div class="absolute -bottom-6 -right-6 h-40 w-40 rounded-2xl bg-ember-400 -z-0 hidden sm:block"></div>
+            <div class="absolute -top-6 -left-6 h-28 w-28 rounded-2xl border-2 border-stone-900 -z-0 hidden sm:block"></div>
+
+            <!-- Signature badge -->
+            <div class="absolute z-20 -bottom-6 left-6 sm:left-8 bg-stone-900 text-stone-50 rounded-xl px-4 py-3 shadow-soft flex items-center gap-3">
+              <div class="h-10 w-10 rounded-full bg-ember-400 text-stone-900 font-display font-bold flex items-center justify-center">L</div>
+              <div class="leading-tight">
+                <div class="text-sm font-semibold">Luis Hernandez</div>
+                <div class="text-[11px] uppercase tracking-wider text-stone-400">Owner &amp; Craftsman</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 reveal">
+          <p class="eyebrow">About</p>
+          <h2 class="mt-4 font-display text-4xl sm:text-5xl font-semibold tracking-tight text-stone-900 leading-tight">
+            Honest work.<br>
+            Stone, brick, and patience.
+          </h2>
+          <div class="mt-8 space-y-5 text-stone-700 text-base sm:text-lg leading-relaxed">
+            <p>
+              For more than <span class="font-semibold text-stone-900">three decades</span>, I've dedicated my craft to working with stone, brick, and block — building the kind of masonry that belongs in a place for generations.
+            </p>
+            <p>
+              From intricate brickwork and custom caps to stone foundations, elegant fireplaces, patio pillars, and complete outdoor living spaces, each project is led by the same hands from start to finish.
+            </p>
+            <p class="text-stone-900 font-medium">
+              Clear communication. Fair pricing. Work that stands the test of time.
+            </p>
+          </div>
+
+          <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="flex items-start gap-3 p-4 rounded-xl bg-white border border-stone-200">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 text-ember-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              <div>
+                <div class="font-semibold text-stone-900">Licensed &amp; Insured</div>
+                <div class="text-sm text-stone-600">Every project, fully covered.</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-4 rounded-xl bg-white border border-stone-200">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 text-ember-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <div class="font-semibold text-stone-900">On-Time Delivery</div>
+                <div class="text-sm text-stone-600">Schedules we actually keep.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="bg-amber-600 text-white py-16 md:py-24 text-center rounded-t-lg shadow-xl">
-    <div class="container mx-auto px-4">
-      <h3 class="text-4xl font-bold mb-6">Ready to Start Your Project?</h3>
-      <p class="text-xl mb-8 max-w-2xl mx-auto">Contact me today for a free consultation and let's discuss how we can bring your masonry vision to life.</p>
-      <a href="mailto:lasaugna82@gmail.com" class="bg-white hover:bg-gray-100 text-amber-700 font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 shadow-lg">Get a Free Quote</a>
-      <p class="mt-4 text-lg">Or call at: <span class="font-semibold">(406) 281-2191</span></p>
+  <!-- Services -->
+  <section id="services" class="py-24 sm:py-32 bg-stone-900 text-stone-100 relative overflow-hidden">
+    <div class="absolute inset-0 texture opacity-30"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl reveal">
+        <p class="eyebrow text-ember-400">Services</p>
+        <h2 class="mt-4 font-display text-4xl sm:text-5xl font-semibold tracking-tight leading-tight">
+          What we build
+        </h2>
+        <p class="mt-6 text-stone-300 text-lg leading-relaxed">
+          A focused list of what we do best — from the foundation up to the chimney cap.
+        </p>
+      </div>
+
+      <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- card template -->
+        <div class="reveal group rounded-2xl bg-stone-800/60 border border-stone-700/60 p-6 hover:border-ember-400 hover:bg-stone-800 transition">
+          <div class="h-11 w-11 rounded-lg bg-ember-400/15 text-ember-400 flex items-center justify-center mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18M5 6h14M5 18h14"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold">Brickwork</h3>
+          <p class="mt-2 text-stone-400 text-sm leading-relaxed">Walls, columns, veneers, and decorative patterns laid to last for generations.</p>
+        </div>
+
+        <div class="reveal group rounded-2xl bg-stone-800/60 border border-stone-700/60 p-6 hover:border-ember-400 hover:bg-stone-800 transition">
+          <div class="h-11 w-11 rounded-lg bg-ember-400/15 text-ember-400 flex items-center justify-center mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 20l4-16m4 16l4-16M3 9h18M3 15h18"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold">Stonework &amp; Foundations</h3>
+          <p class="mt-2 text-stone-400 text-sm leading-relaxed">Natural stone facades, retaining walls, and structural foundations built strong.</p>
+        </div>
+
+        <div class="reveal group rounded-2xl bg-stone-800/60 border border-stone-700/60 p-6 hover:border-ember-400 hover:bg-stone-800 transition">
+          <div class="h-11 w-11 rounded-lg bg-ember-400/15 text-ember-400 flex items-center justify-center mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2s4 4 4 8a4 4 0 11-8 0c0-4 4-8 4-8zM6 22h12"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold">Fireplaces</h3>
+          <p class="mt-2 text-stone-400 text-sm leading-relaxed">Custom indoor and outdoor fireplaces — the heart of any home.</p>
+        </div>
+
+        <div class="reveal group rounded-2xl bg-stone-800/60 border border-stone-700/60 p-6 hover:border-ember-400 hover:bg-stone-800 transition">
+          <div class="h-11 w-11 rounded-lg bg-ember-400/15 text-ember-400 flex items-center justify-center mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 22V10l6-6 6 6v12M9 22v-6h6v6"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold">Chimneys &amp; Caps</h3>
+          <p class="mt-2 text-stone-400 text-sm leading-relaxed">New builds, repairs, and hand-made caps that finish the job right.</p>
+        </div>
+
+        <div class="reveal group rounded-2xl bg-stone-800/60 border border-stone-700/60 p-6 hover:border-ember-400 hover:bg-stone-800 transition">
+          <div class="h-11 w-11 rounded-lg bg-ember-400/15 text-ember-400 flex items-center justify-center mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M6 21V10m6 11V6m6 15v-8"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold">Patios &amp; Pillars</h3>
+          <p class="mt-2 text-stone-400 text-sm leading-relaxed">Entryway pillars, durable patios, and hardscape that ties a yard together.</p>
+        </div>
+
+        <div class="reveal group rounded-2xl bg-stone-800/60 border border-stone-700/60 p-6 hover:border-ember-400 hover:bg-stone-800 transition">
+          <div class="h-11 w-11 rounded-lg bg-ember-400/15 text-ember-400 flex items-center justify-center mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2 4 4 8-8 4 4v10H3z"/></svg>
+          </div>
+          <h3 class="font-display text-xl font-semibold">Outdoor Living</h3>
+          <p class="mt-2 text-stone-400 text-sm leading-relaxed">Kitchens, pizza ovens, fire pits — custom spaces built to gather around.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work / Masonry Gallery -->
+  <section id="work" class="py-24 sm:py-32 bg-stone-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14 reveal">
+        <div class="max-w-xl">
+          <p class="eyebrow">Portfolio</p>
+          <h2 class="mt-4 font-display text-4xl sm:text-5xl font-semibold tracking-tight text-stone-900 leading-tight">
+            Recent projects
+          </h2>
+          <p class="mt-5 text-stone-600 text-lg">
+            A selection of work from around the valley. Tap any photo to open the gallery.
+          </p>
+        </div>
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 text-stone-900 font-medium hover:text-ember-600 transition">
+          Start your project
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+
+      <div id="projectsSkeleton" class="masonry">
+        <div class="masonry-item"><div class="skeleton h-80"></div></div>
+        <div class="masonry-item"><div class="skeleton h-96"></div></div>
+        <div class="masonry-item"><div class="skeleton h-72"></div></div>
+        <div class="masonry-item"><div class="skeleton h-96"></div></div>
+        <div class="masonry-item"><div class="skeleton h-80"></div></div>
+        <div class="masonry-item"><div class="skeleton h-72"></div></div>
+      </div>
+
+      <div id="projectsContainer" class="masonry hidden"></div>
+
+      <p id="projectsError" class="hidden text-center text-stone-500 mt-8">
+        Projects couldn't load right now. Please try again later.
+      </p>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="py-24 sm:py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl reveal">
+        <p class="eyebrow">How we work</p>
+        <h2 class="mt-4 font-display text-4xl sm:text-5xl font-semibold tracking-tight text-stone-900 leading-tight">
+          Simple, honest process.
+        </h2>
+      </div>
+
+      <ol class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <li class="reveal relative p-8 rounded-2xl bg-stone-50 border border-stone-200">
+          <div class="font-display text-5xl font-semibold text-ember-400 mb-6">01</div>
+          <h3 class="font-display text-xl font-semibold text-stone-900">Walk the site</h3>
+          <p class="mt-2 text-stone-600 text-sm leading-relaxed">We visit, talk through the vision, and answer your questions — no pressure, no surprises.</p>
+        </li>
+        <li class="reveal relative p-8 rounded-2xl bg-stone-50 border border-stone-200">
+          <div class="font-display text-5xl font-semibold text-ember-400 mb-6">02</div>
+          <h3 class="font-display text-xl font-semibold text-stone-900">Clear quote</h3>
+          <p class="mt-2 text-stone-600 text-sm leading-relaxed">A plain-English estimate with materials, timeline, and price laid out so you can decide.</p>
+        </li>
+        <li class="reveal relative p-8 rounded-2xl bg-stone-50 border border-stone-200">
+          <div class="font-display text-5xl font-semibold text-ember-400 mb-6">03</div>
+          <h3 class="font-display text-xl font-semibold text-stone-900">Build it right</h3>
+          <p class="mt-2 text-stone-600 text-sm leading-relaxed">Owner-led work from first cut to final clean-up. Built to outlast the rest of the house.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Contact / CTA -->
+  <section id="contact" class="relative overflow-hidden bg-stone-900 text-stone-100">
+    <div class="absolute inset-0 texture opacity-30"></div>
+    <div class="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-ember-400/20 blur-3xl"></div>
+    <div class="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-ember-400/10 blur-3xl"></div>
+
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 text-center reveal">
+      <p class="eyebrow text-ember-400">Let's build something</p>
+      <h2 class="mt-4 font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-tight">
+        Ready to start<br>your project?
+      </h2>
+      <p class="mt-6 text-stone-300 text-lg max-w-2xl mx-auto">
+        Free consultations, honest estimates, and work you'll be proud to point at.
+      </p>
+
+      <div class="mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+        <a href="mailto:lasaugna82@gmail.com" class="inline-flex items-center justify-center gap-2 bg-ember-400 hover:bg-ember-500 text-stone-900 font-semibold py-4 px-8 rounded-full transition shadow-soft">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          Email a Quote Request
+        </a>
+        <a href="tel:+14062812191" class="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/20 text-stone-100 font-semibold py-4 px-8 rounded-full transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h2.28a2 2 0 011.94 1.515l.7 2.8a2 2 0 01-.45 1.95l-1.27 1.27a16 16 0 006.586 6.586l1.27-1.27a2 2 0 011.95-.45l2.8.7A2 2 0 0121 17.72V20a2 2 0 01-2 2h-1C9.716 22 2 14.284 2 5V4z"/></svg>
+          (406) 281-2191
+        </a>
+      </div>
+
+      <div class="mt-16 pt-10 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-8 text-left max-w-3xl mx-auto">
+        <div>
+          <div class="text-xs uppercase tracking-[0.2em] text-stone-400">Email</div>
+          <a href="mailto:lasaugna82@gmail.com" class="mt-2 block font-medium hover:text-ember-400 transition break-all">lasaugna82@gmail.com</a>
+        </div>
+        <div>
+          <div class="text-xs uppercase tracking-[0.2em] text-stone-400">Phone</div>
+          <a href="tel:+14062812191" class="mt-2 block font-medium hover:text-ember-400 transition">(406) 281-2191</a>
+        </div>
+        <div>
+          <div class="text-xs uppercase tracking-[0.2em] text-stone-400">Service Area</div>
+          <div class="mt-2 font-medium">Bitterroot Valley, MT</div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-400 py-8">
-    <div class="container mx-auto px-4 text-center">
-      <p>&copy; 2025 Luis C Hernandez Jr. LLC Masonry. All rights reserved.</p>
-      <p class="mt-2">Built with passion and dedication.</p>
+  <footer class="bg-stone-950 text-stone-400 py-10 text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex h-8 w-8 items-center justify-center rounded-md bg-stone-800 text-ember-400 font-display font-bold">LH</span>
+        <span>&copy; 2025 Luis C Hernandez Jr. LLC · All rights reserved.</span>
+      </div>
+      <div class="text-stone-500">Built with passion and dedication.</div>
     </div>
   </footer>
 
-  <!-- Scroll to Top -->
-  <button id="scrollToTopBtn" title="Go to top">↑</button>
+  <!-- Scroll to top -->
+  <button id="scrollToTopBtn" title="Back to top" aria-label="Back to top">↑</button>
 
   <!-- Lightbox -->
-<div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:9999; flex-direction:column;">
-  <button id="lightboxPrev" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); font-size:3rem; color:white; background:none; border:none; cursor:pointer;">‹</button>
-  <img id="lightboxImg" src="" alt="Expanded Image" style="max-width:90%; max-height:90%; border-radius:8px; box-shadow:0 0 20px rgba(0,0,0,0.5);" />
-  <button id="lightboxNext" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); font-size:3rem; color:white; background:none; border:none; cursor:pointer;">›</button>
-</div>
+  <div id="lightbox" class="hidden fixed inset-0 z-[100] bg-stone-950/95 items-center justify-center">
+    <button id="lightboxClose" class="absolute top-4 right-4 text-stone-100/80 hover:text-white w-12 h-12 flex items-center justify-center text-4xl leading-none" aria-label="Close">&times;</button>
+    <button id="lightboxPrev"  class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 text-stone-100/80 hover:text-white text-5xl bg-black/30 hover:bg-black/50 w-12 h-12 rounded-full flex items-center justify-center" aria-label="Previous">‹</button>
+    <img id="lightboxImg" src="" alt="Expanded view" class="max-w-[92vw] max-h-[88vh] rounded-xl shadow-2xl select-none" />
+    <button id="lightboxNext"  class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 text-stone-100/80 hover:text-white text-5xl bg-black/30 hover:bg-black/50 w-12 h-12 rounded-full flex items-center justify-center" aria-label="Next">›</button>
+    <div id="lightboxCounter" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-stone-300 text-sm bg-black/40 px-3 py-1 rounded-full"></div>
+  </div>
 
-<script>
-  let currentGallery = [];
-  let currentIndex = 0;
+  <!-- UI scripts -->
+  <script>
+    // Mobile nav
+    const navToggle = document.getElementById('navToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const iconOpen = document.getElementById('iconOpen');
+    const iconClose = document.getElementById('iconClose');
+    navToggle.addEventListener('click', () => {
+      mobileNav.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+    });
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileNav.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    }));
 
-  document.addEventListener("DOMContentLoaded", () => {
-    // Click handler for project images
-    document.body.addEventListener("click", e => {
-      if (e.target.tagName === "IMG" && e.target.classList.contains("project-image")) {
-        const slides = [...e.target.closest(".slider").querySelectorAll("img")];
-        currentGallery = slides.map(img => img.src);
-        currentIndex = slides.findIndex(img => img === e.target);
+    // Header shadow on scroll
+    const header = document.getElementById('siteHeader');
+    const onScroll = () => {
+      if (window.scrollY > 8) header.classList.add('shadow-card');
+      else header.classList.remove('shadow-card');
+      scrollBtn.style.display = window.scrollY > 400 ? 'block' : 'none';
+    };
+    const scrollBtn = document.getElementById('scrollToTopBtn');
+    window.addEventListener('scroll', onScroll, { passive: true });
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+
+  <!-- Lightbox -->
+  <script>
+    let currentGallery = [];
+    let currentIndex = 0;
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+
+    function showLightbox() {
+      lightboxImg.src = currentGallery[currentIndex];
+      lightboxCounter.textContent = `${currentIndex + 1} / ${currentGallery.length}`;
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+    function hideLightbox() {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.addEventListener('click', e => {
+        const img = e.target.closest('img.project-image');
+        if (!img) return;
+        const slider = img.closest('.slider');
+        if (!slider) return;
+        const imgs = [...slider.querySelectorAll('.slides > .slide:not(.clone) img')];
+        currentGallery = imgs.map(i => i.src);
+        currentIndex = Math.max(0, imgs.findIndex(i => i.src === img.src));
         showLightbox();
-      }
+      });
+
+      lightbox.addEventListener('click', e => { if (e.target === lightbox) hideLightbox(); });
+      document.getElementById('lightboxClose').addEventListener('click', hideLightbox);
+      document.getElementById('lightboxPrev').addEventListener('click', e => {
+        e.stopPropagation();
+        currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+        showLightbox();
+      });
+      document.getElementById('lightboxNext').addEventListener('click', e => {
+        e.stopPropagation();
+        currentIndex = (currentIndex + 1) % currentGallery.length;
+        showLightbox();
+      });
+
+      document.addEventListener('keydown', e => {
+        if (lightbox.classList.contains('hidden')) return;
+        if (e.key === 'Escape') hideLightbox();
+        if (e.key === 'ArrowLeft')  document.getElementById('lightboxPrev').click();
+        if (e.key === 'ArrowRight') document.getElementById('lightboxNext').click();
+      });
     });
+  </script>
 
-    document.getElementById("lightbox").addEventListener("click", e => {
-      if (e.target.id === "lightbox" || e.target.tagName === "IMG") {
-        document.getElementById("lightbox").style.display = "none";
-      }
-    });
-
-    document.getElementById("lightboxPrev").addEventListener("click", e => {
-      e.stopPropagation();
-      currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
-      showLightbox();
-    });
-
-    document.getElementById("lightboxNext").addEventListener("click", e => {
-      e.stopPropagation();
-      currentIndex = (currentIndex + 1) % currentGallery.length;
-      showLightbox();
-    });
-  });
-
-  function showLightbox() {
-    const lightbox = document.getElementById("lightbox");
-    const img = document.getElementById("lightboxImg");
-    img.src = currentGallery[currentIndex];
-    lightbox.style.display = "flex";
-  }
-</script>
-
+  <!-- Google Sheets loader -->
   <script>
     const sheetID = "1Lb82DGpTXuyo_ngBaqgXw-TYArspSb13Pku0g3EmKZI";
     const sheetName = "Sheet1";
@@ -190,55 +622,88 @@
 
     async function loadProjectsFromSheet() {
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/${sheetName}?key=${apiKey}`;
+      const skeleton = document.getElementById('projectsSkeleton');
+      const container = document.getElementById('projectsContainer');
+      const errorEl = document.getElementById('projectsError');
+
       try {
         const res = await fetch(url);
         const data = await res.json();
 
-        if (!data.values || data.values.length < 2) return;
+        if (!data.values || data.values.length < 2) {
+          skeleton.classList.add('hidden');
+          errorEl.classList.remove('hidden');
+          return;
+        }
 
         const rows = data.values.slice(1);
-        const container = document.getElementById("projectsContainer");
         container.innerHTML = "";
 
         rows.forEach(row => {
           const [title, description, image_urls] = row;
-          const urls = image_urls ? image_urls.split(",").map(u => u.trim()) : [];
+          const urls = image_urls ? image_urls.split(",").map(u => u.trim()).filter(Boolean) : [];
+          if (urls.length === 0) return;
 
           const imagesHTML = urls.map((url, i) => `
-            <div class="slide flex-shrink-0 w-full">
-              <img src="${url}" alt="${title} ${i+1}" class="project-image w-full h-64 object-cover cursor-pointer" />
+            <div class="slide">
+              <img src="${url}" alt="${(title || 'Project').replace(/"/g,'&quot;')} ${i+1}" loading="lazy"
+                   class="project-image w-full h-auto object-cover cursor-zoom-in" />
             </div>
           `).join("");
 
+          const navButtons = urls.length > 1 ? `
+            <button class="prev absolute top-1/2 left-3 -translate-y-1/2 bg-stone-900/60 hover:bg-stone-900/85 text-white w-9 h-9 rounded-full flex items-center justify-center transition backdrop-blur-sm" aria-label="Previous image">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <button class="next absolute top-1/2 right-3 -translate-y-1/2 bg-stone-900/60 hover:bg-stone-900/85 text-white w-9 h-9 rounded-full flex items-center justify-center transition backdrop-blur-sm" aria-label="Next image">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <span class="absolute top-3 right-3 bg-stone-900/70 text-white text-[11px] font-medium uppercase tracking-wider px-2.5 py-1 rounded-full backdrop-blur-sm">${urls.length} photos</span>
+          ` : '';
+
           const projectHTML = `
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 project-item">
-              <div class="slider relative overflow-hidden">
-                <div class="slides flex transition-transform duration-500 ease-in-out">
-                  ${imagesHTML}
+            <div class="masonry-item reveal">
+              <article class="group bg-white rounded-2xl shadow-card hover:shadow-soft overflow-hidden transition duration-500 border border-stone-100">
+                <div class="slider card-img-wrap">
+                  <div class="slides">${imagesHTML}</div>
+                  ${navButtons}
                 </div>
-                ${urls.length > 1 ? `
-                  <button class="prev absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white px-3 py-1 rounded-full">‹</button>
-                  <button class="next absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white px-3 py-1 rounded-full">›</button>
-                ` : ""}
-              </div>
-              <div class="p-6">
-                <h4 class="text-2xl font-semibold text-gray-900 mb-2">${title}</h4>
-                <p class="text-gray-700">${description}</p>
-              </div>
+                <div class="p-6 sm:p-7">
+                  <h3 class="font-display text-xl sm:text-2xl font-semibold text-stone-900 leading-snug">${title || ''}</h3>
+                  <p class="mt-3 text-stone-600 text-sm sm:text-base leading-relaxed">${description || ''}</p>
+                </div>
+              </article>
             </div>
           `;
           container.insertAdjacentHTML('beforeend', projectHTML);
         });
 
-        // Infinite slider logic
+        skeleton.classList.add('hidden');
+        container.classList.remove('hidden');
+
+        // Re-observe newly inserted reveal items
+        container.querySelectorAll('.reveal').forEach(el => {
+          const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.12 });
+          obs.observe(el);
+        });
+
+        // Slider logic (infinite loop)
         document.querySelectorAll(".slider").forEach(slider => {
           const slides = slider.querySelector(".slides");
           const slideCount = slides.children.length;
-          let index = 0;
+          if (slideCount <= 1) return;
 
-          // Clone first and last slide for smooth looping
           const firstClone = slides.children[0].cloneNode(true);
+          firstClone.classList.add('clone');
           const lastClone = slides.children[slideCount - 1].cloneNode(true);
+          lastClone.classList.add('clone');
           slides.appendChild(firstClone);
           slides.insertBefore(lastClone, slides.firstChild);
 
@@ -247,7 +712,7 @@
           slides.style.transform = `translateX(-${currentIndex * 100}%)`;
 
           const updateSlide = () => {
-            slides.style.transition = "transform 0.5s ease-in-out";
+            slides.style.transition = "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)";
             slides.style.transform = `translateX(-${currentIndex * 100}%)`;
           };
 
@@ -267,18 +732,14 @@
           const prev = slider.querySelector(".prev");
           const next = slider.querySelector(".next");
           if (prev && next) {
-            prev.addEventListener("click", () => {
-              currentIndex--;
-              updateSlide();
-            });
-            next.addEventListener("click", () => {
-              currentIndex++;
-              updateSlide();
-            });
+            prev.addEventListener("click", e => { e.stopPropagation(); currentIndex--; updateSlide(); });
+            next.addEventListener("click", e => { e.stopPropagation(); currentIndex++; updateSlide(); });
           }
         });
       } catch (err) {
         console.error("Failed to load projects:", err);
+        skeleton.classList.add('hidden');
+        errorEl.classList.remove('hidden');
       }
     }
 
@@ -286,4 +747,3 @@
   </script>
 </body>
 </html>
-
